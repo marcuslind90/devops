@@ -1,0 +1,15 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+        "name": "backend",
+        "image": "my.repo.com/my_image:tag_version",
+        "portMappings": [
+            {
+            "hostPort": 8000,
+            "containerPort": 8000
+            }
+        ]
+        }
+    ]
+}

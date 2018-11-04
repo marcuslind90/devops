@@ -1,0 +1,15 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+        "name": "backend",
+        "image": "new_image:new_tag",
+        "portMappings": [
+            {
+            "hostPort": 8000,
+            "containerPort": 8000
+            }
+        ]
+        }
+    ]
+}

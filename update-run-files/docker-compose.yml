@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+
+  app:
+    image: my_image:tag_version
+    ports:
+      - "80:80"
+
+  db:
+    image: my_db_image:tag_version
