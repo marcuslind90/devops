@@ -3,7 +3,7 @@
     "containerDefinitions": [
         {
         "name": "backend",
-        "image": "new_image:new_tag",
+        "image": "my.repo.com/my_image:my_commit",
         "portMappings": [
             {
             "hostPort": 8000,

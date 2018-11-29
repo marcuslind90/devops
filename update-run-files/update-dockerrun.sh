@@ -1,3 +1,3 @@
 cat "Dockerrun.aws.json" \
-    | sed -E '6s/(.*\"image\": ).*/\1\"new_image:new_tag\",/g' \
+    | sed -E 's/(.*\"image\": \"my.repo.com\/my_image:).*/\1my_commit\",/' \
     > "outputs/Dockerrun.aws.json"
