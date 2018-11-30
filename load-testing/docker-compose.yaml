@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:9.6
+    volumes:
+      - ./volumes/postgresql:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  
+  app:
+    build: .
+    command: /app/utils/wait-for-it.sh db:5432 -- bash -c "
+            python manage.py migrate &&
+            python manage.py collectstatic --noinput &&
+            gunicorn loadtester.wsgi:application -w 1 --bind 0.0.0.0:8000"
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./app:/app
+      - ./volumes/static:/app/static
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx:1.15
+    restart: always
+    volumes:
+      - ./resources/nginx/conf.d:/etc/nginx/conf.d
+      - ./volumes/static:/static
+    ports:
+      - "80:80"
