@@ -8,3 +8,8 @@ Continuous Integration, Continuous Deployment and other related topics.
 Describes how you can easily update Docker Container Definition files such as 
 `docker-compose.yml` or `Dockerrun.aws.json` with your latest image tag in a 
 CI/CD pipeline.
+
+## load-testing
+
+Demo of how you can perform load testing against a Django application using 
+[Locust.io](https://locust.io).
