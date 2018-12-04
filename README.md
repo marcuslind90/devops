@@ -13,3 +13,8 @@ CI/CD pipeline.
 
 Demo of how you can perform load testing against a Django application using 
 [Locust.io](https://locust.io).
+
+## digitalocean-terraform-docker
+
+Example of how you can use Terraform to provision your resources on Digital Ocean and launching a Docker application.
+
