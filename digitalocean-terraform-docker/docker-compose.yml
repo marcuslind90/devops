@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  app:
+    build: ./app
+    restart: always
+
+  nginx:
+    image: nginx:1.15
+    restart: always
+    volumes:
+      - ./resources/nginx/conf.d:/etc/nginx/conf.d
+    ports:
+      - "80:80"
