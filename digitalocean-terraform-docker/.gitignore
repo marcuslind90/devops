@@ -183,3 +183,7 @@ dmypy.json
 volumes/
 envs/
 .vscode/
+
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
