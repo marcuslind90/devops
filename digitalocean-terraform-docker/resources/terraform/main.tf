@@ -18,4 +18,5 @@ module "web" {
 module "network" {
     source = "./network"
     droplet_ids = ["${module.web.droplet_ids}"]
+    loadbalancer_id = "${module.web.loadbalancer_id}"
 }

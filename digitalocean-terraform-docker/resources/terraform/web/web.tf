@@ -1,9 +1,11 @@
-resource "digitalocean_droplet" "web1" {
-    name = "web1"
+resource "digitalocean_droplet" "web" {
+    count = 2
+    name = "web-${count.index + 1}"
     image = "ubuntu-18-04-x64"
     region = "ams3"
     size = "512mb"
     private_networking = true
+    monitoring = false
     ssh_keys = [
         "${var.ssh_fingerprint}"
     ]
