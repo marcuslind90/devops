@@ -12,6 +12,32 @@ during the CI stage in a CI/CD pipeline.
 
 Run it all with `bash continous-integration.sh`.
 
+## Code Formatting
+
+We use `black` as an automatic code formatter that rewrites code to follow
+Black's style rules. This helps keeping the code consistent and also help to 
+keep `git diff` minimal, which makes Pull Requests and Code Reviews easier.
+
+To automatically run `black` to format the code we use the `pre-commits` python 
+package, which allow us to hook into git actions and run scripts when the 
+developer is creating a new commit.
+
+You need to run `pre-commit install` to create these hooks so that the scripts 
+are executed whenever you do `git commit`.
+
+Normally you do not need to specify the file path to the `.pre-commit-config.yaml` 
+file, but since this is a subdirectory of the repository, we need to specify 
+the config file path explicitly in our demo case.
+
+```bash
+pre-commit install --config=continuous-integration/.pre-commit-config.yaml
+```
+
+*pre-commit does not stage the changes that is done by `black`. So if your 
+commit need to be refactored, you need to re-add and re-commit the changes 
+again before you push. This is intentional to give developer full control of 
+what is staged.*
+
 ## Linting
 
 To ensure high quality of the code base, we can use static code analysis to 
