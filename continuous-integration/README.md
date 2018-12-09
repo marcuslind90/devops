@@ -67,5 +67,10 @@ methods require docstrings in our repository.*
 We use the built in `unittest` package to write tests. By using the 
 `coverage.py` package we can execute our tests and report the code coverage.
 
-We can choose to generate code coverage as XML or HTML. But in our case we only 
-write it out to the console using `coverage report`.
+We can also validate that the code coverage is above a certain threshold and 
+then throw an exit code if its below that treshold, to prevent any kind of 
+build, merge or deployment with too low test coverage. This is all controlled 
+by the `--fail-under=70` option set on the `coverage report` command.
+
+Note that we can also choose to generate code coverage as XML or HTML, and 
+upload this file somewhere during our CI-step to allow further analysis.
