@@ -12,7 +12,7 @@ class Foo(object):
 
         """
         prim: int = 1
-        seco: str = "a"
+        seco: str = "b"
         return prim + seco
 
 
