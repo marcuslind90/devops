@@ -1,3 +1,5 @@
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+
 # Continous Integration with Python
 
 Continuous Integration is a set of tasks that is being executed automatically 
