@@ -45,9 +45,15 @@ verify that the code follow certain rules, standards and that no obvious bugs
 are being deployed or released.
 
 Tools used:
+- black
 - flake8
 - flake8-mypy
 - flake8-docstrings
+
+### black
+We use `black --check` to check all files using the Black code formatter, 
+which makes sure that the code follow Black's code styling.
+
 
 ### flake8
 Make sure that code follow PEP8 code standards. 
