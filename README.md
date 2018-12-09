@@ -18,3 +18,7 @@ Demo of how you can perform load testing against a Django application using
 
 Example of how you can use Terraform to provision your resources on Digital Ocean and launching a Docker application.
 
+## continuous-integration
+
+Example of tests, linters and tools that can be used during the CI step of a CI/CD Pipeline to ensure code quality.
+

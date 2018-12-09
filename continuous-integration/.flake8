@@ -1,0 +1,4 @@
+[flake8]
+ignore = D100,  # Missing docstring in public module
+         D104,  # Missing docstring in public package
+         D107,  # Missing docstring in __init__ method
