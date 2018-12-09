@@ -46,7 +46,7 @@ Misses the following:
 
 ```python
     def foo(value: int):
-        bar: str
+        bar: str = "bar"
         return value + bar  # Raises TypeError
     foo(value=1)
 ```
