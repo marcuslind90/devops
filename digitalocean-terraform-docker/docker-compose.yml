@@ -2,8 +2,12 @@ version: '3'
 
 services:
   app:
-    image: marcuslind90/digitalocean-terraform-docker:latest
+    build: ./app/
+    volumes:
+      - ./app/:/app/
     restart: always
+    ports:
+      - "8000:8000"
 
   nginx:
     image: nginx:1.15

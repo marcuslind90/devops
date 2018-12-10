@@ -2,7 +2,7 @@ version: '3'
 
 services:
   app:
-    image: marcuslind90/digitalocean-terraform-docker:398cab20
+    image: marcuslind90/digitalocean-terraform-docker:bfc5a54e
     restart: always
     ports:
       - "8000:8000"
