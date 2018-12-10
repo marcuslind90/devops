@@ -5,7 +5,7 @@ resource "digitalocean_droplet" "web" {
     region = "ams3"
     size = "512mb"
     private_networking = true
-    monitoring = false
+    monitoring = true
     ssh_keys = [
         "${var.ssh_fingerprint}"
     ]
