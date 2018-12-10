@@ -55,7 +55,7 @@ resource "null_resource" "deploy" {
 
     provisioner "remote-exec" {
         inline = [
-            "export HOST=${count.index}",
+            "export APP_COUNT=${count.index}",
             "sudo docker-compose up -d",
         ]
     }

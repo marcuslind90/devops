@@ -5,5 +5,5 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    host = os.environ.get("HOST", "Undefined")
-    return f"Hello World from #{host}"
+    app_count = os.environ.get("APP_COUNT", "Undefined")
+    return f"Hello World from #{app_count}"
