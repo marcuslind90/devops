@@ -19,10 +19,31 @@ resource "digitalocean_droplet" "web" {
 
     provisioner "remote-exec" {
         inline = [
-            "export PATH=$PATH:/usr/bin",
-            # install nginx
             "sudo apt-get update",
-            "sudo apt-get -y install nginx"
+            "sudo apt-get -y install docker docker-compose",
         ]
+    }
+}
+
+resource "null_resource" "deploy" {
+    depends_on = ["digitalocean_droplet.web"]
+    count = "${length(digitalocean_droplet.web.*.id)}"
+
+    triggers {
+        git_revision = "${var.git_revision}"
+        droplet_ids = "${join(",", digitalocean_droplet.web.*.id)}"
+    }
+
+    connection {
+        user = "root"
+        type = "ssh"
+        private_key = "${file(var.pvt_key)}"
+        timeout = "2m"
+        host = "${element(digitalocean_droplet.web.*.ipv4_address, count.index)}"
+    }
+
+    provisioner "file" {
+        source = "../docker-compose.prod.yml"
+        destination = "~/docker-compose.yml"
     }
 }

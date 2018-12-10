@@ -3,6 +3,8 @@ variable "pub_key" {}
 variable "pvt_key" {}
 variable "ssh_fingerprint" {}
 
+variable "git_revision" {}
+
 provider "digitalocean" {
   token = "${var.do_token}"
 }
@@ -13,6 +15,7 @@ module "web" {
     pub_key = "${var.pub_key}"
     pvt_key = "${var.pvt_key}"
     ssh_fingerprint = "${var.ssh_fingerprint}"
+    git_revision = "${var.git_revision}"
 }
 
 module "network" {

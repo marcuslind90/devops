@@ -2,6 +2,7 @@ variable "do_token" {}
 variable "pub_key" {}
 variable "pvt_key" {}
 variable "ssh_fingerprint" {}
+variable "git_revision" {}
 
 output "droplet_ids" {
     value = ["${digitalocean_droplet.web.*.id}"]
