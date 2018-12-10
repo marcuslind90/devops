@@ -4,6 +4,8 @@ variable "pvt_key" {}
 variable "ssh_fingerprint" {}
 variable "git_revision" {}
 
+variable "instance_count" { default = 2 }
+
 output "droplet_ids" {
     value = ["${digitalocean_droplet.web.*.id}"]
 }

@@ -1,5 +1,5 @@
 resource "digitalocean_droplet" "web" {
-    count = 2
+    count = "${var.instance_count}"
     name = "web-${count.index + 1}"
     image = "ubuntu-18-04-x64"
     region = "ams3"
@@ -19,6 +19,7 @@ resource "digitalocean_droplet" "web" {
 
     provisioner "remote-exec" {
         inline = [
+            "while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done",
             "sudo apt-get update",
             "sudo apt-get -y install docker docker-compose",
         ]
@@ -27,7 +28,7 @@ resource "digitalocean_droplet" "web" {
 
 resource "null_resource" "deploy" {
     depends_on = ["digitalocean_droplet.web"]
-    count = "${length(digitalocean_droplet.web.*.id)}"
+    count = "${var.instance_count}"
 
     triggers {
         git_revision = "${var.git_revision}"
@@ -45,5 +46,11 @@ resource "null_resource" "deploy" {
     provisioner "file" {
         source = "../docker-compose.prod.yml"
         destination = "~/docker-compose.yml"
+    }
+
+    provisioner "remote-exec" {
+        inline = [
+            "sudo docker-compose up -d",
+        ]
     }
 }

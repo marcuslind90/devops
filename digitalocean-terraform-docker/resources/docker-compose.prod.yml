@@ -2,7 +2,7 @@ version: '3'
 
 services:
   app:
-    image: marcuslind90/digitalocean-terraform-docker:latest
+    image: marcuslind90/digitalocean-terraform-docker:662f77a4
     restart: always
 
   nginx:
