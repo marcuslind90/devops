@@ -2,13 +2,15 @@ version: '3'
 
 services:
   app:
-    image: marcuslind90/digitalocean-terraform-docker:662f77a4
+    image: marcuslind90/digitalocean-terraform-docker:6c188584
     restart: always
+    ports:
+      - "8000:8000"
 
   nginx:
     image: nginx:1.15
     restart: always
     volumes:
-      - ./resources/nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/conf.d:/etc/nginx/conf.d
     ports:
       - "80:80"

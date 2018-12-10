@@ -12,7 +12,7 @@ docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 docker push marcuslind90/digitalocean-terraform-docker:$COMMIT
 
 # sed to replace tag with $COMMIT in docker-compose
-cat "../docker-compose.yml" \
+cat "docker-compose.prod.yml" \
     | sed -E 's/(.*digitalocean-terraform-docker:).*/\1'$COMMIT'/' \
     > "docker-compose.prod.yml"
 
