@@ -44,6 +44,11 @@ resource "null_resource" "deploy" {
     }
 
     provisioner "file" {
+        source = "../nginx/"
+        destination = "~/nginx/"
+    }
+
+    provisioner "file" {
         source = "../docker-compose.prod.yml"
         destination = "~/docker-compose.yml"
     }
