@@ -22,3 +22,6 @@ Example of how you can use Terraform to provision your resources on Digital Ocea
 
 Example of tests, linters and tools that can be used during the CI step of a CI/CD Pipeline to ensure code quality.
 
+## docker-zero-downtime-deployment
+
+Example of how you can update a running Docker container using Green/Blue Deployment that ensure zero downtime.
