@@ -3,7 +3,7 @@ resource "digitalocean_droplet" "web" {
     name = "web-${count.index + 1}"
     image = "ubuntu-18-04-x64"
     region = "ams3"
-    size = "512mb"
+    size = "1gb"
     private_networking = true
     monitoring = true
     ssh_keys = [
@@ -44,8 +44,8 @@ resource "null_resource" "deploy" {
     }
 
     provisioner "file" {
-        source = "../nginx/"
-        destination = "~/nginx/"
+        source = "../nginx"
+        destination = "~/"
     }
 
     provisioner "file" {
@@ -55,7 +55,6 @@ resource "null_resource" "deploy" {
 
     provisioner "remote-exec" {
         inline = [
-            "export APP_COUNT=${count.index}",
             "sudo docker-compose up -d",
         ]
     }

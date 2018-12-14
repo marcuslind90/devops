@@ -11,7 +11,7 @@ resource "digitalocean_firewall" "web" {
         {
             protocol                    = "tcp"
             port_range                  = "22"
-            source_addresses            = ["0.0.0.0/0"]
+            source_addresses            = ["10.0.0.0/8", "0.0.0.0/0"]
         },
         {
             protocol                    = "icmp"
