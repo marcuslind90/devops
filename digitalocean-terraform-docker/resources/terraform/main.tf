@@ -4,6 +4,7 @@ variable "pvt_key" {}
 variable "ssh_fingerprint" {}
 
 variable "git_revision" {}
+variable "instance_count" {}
 
 provider "digitalocean" {
   token = "${var.do_token}"
@@ -16,6 +17,7 @@ module "web" {
     pvt_key = "${var.pvt_key}"
     ssh_fingerprint = "${var.ssh_fingerprint}"
     git_revision = "${var.git_revision}"
+    instance_count = "${var.instance_count}"
 }
 
 module "network" {

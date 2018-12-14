@@ -16,26 +16,31 @@ cat "../docker-compose.prod.yml" \
     | sed -E 's/(.*digitalocean-terraform-docker:).*/\1'$COMMIT'/' \
     > "docker-compose.prod.yml"
 
-# Terraform Plan and Apply
+# Terraform Taint, Plan and Apply
 cd terraform
+
+# Since we are deploying a new version, we want to Taint 
+# the existing droplets to force recreation.
+for (( i=0; i<$INSTANCE_COUNT; i++ ))
+do
+	terraform taint -module=web digitalocean_droplet.web.$i
+done
+
+# Plan what to do 
 terraform plan \
   -var "do_token=${DO_PAT}" \
   -var "pub_key=$HOME/.ssh/id_rsa.pub" \
   -var "pvt_key=$HOME/.ssh/id_rsa" \
   -var "ssh_fingerprint=${DO_FINGERPRINT}" \
-  -var "git_revision=${COMMIT}"
+  -var "git_revision=${COMMIT}" \
+  -var "instance_count=${INSTANCE_COUNT}"
 
-
+# Execute plan
 terraform apply \
   -auto-approve \
   -var "do_token=${DO_PAT}" \
   -var "pub_key=$HOME/.ssh/id_rsa.pub" \
   -var "pvt_key=$HOME/.ssh/id_rsa" \
   -var "ssh_fingerprint=${DO_FINGERPRINT}" \
-  -var "git_revision=${COMMIT}"
-
-# Copy over docker-compose file to all servers
-
-# Set Environment Variables on all servers
-
-# Run
+  -var "git_revision=${COMMIT}" \
+  -var "instance_count=${INSTANCE_COUNT}"

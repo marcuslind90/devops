@@ -10,29 +10,8 @@ resource "digitalocean_droplet" "web" {
         "${var.ssh_fingerprint}"
     ]
 
-    connection {
-        user = "root"
-        type = "ssh"
-        private_key = "${file(var.pvt_key)}"
-        timeout = "2m"
-    }
-
-    provisioner "remote-exec" {
-        inline = [
-            "while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done",
-            "sudo apt-get update",
-            "sudo apt-get -y install docker docker-compose",
-        ]
-    }
-}
-
-resource "null_resource" "deploy" {
-    depends_on = ["digitalocean_droplet.web"]
-    count = "${var.instance_count}"
-
-    triggers {
-        git_revision = "${var.git_revision}"
-        droplet_ids = "${join(",", digitalocean_droplet.web.*.id)}"
+    lifecycle {
+        create_before_destroy = true
     }
 
     connection {
@@ -40,9 +19,7 @@ resource "null_resource" "deploy" {
         type = "ssh"
         private_key = "${file(var.pvt_key)}"
         timeout = "2m"
-        host = "${element(digitalocean_droplet.web.*.ipv4_address, count.index)}"
     }
-
     provisioner "file" {
         source = "../nginx"
         destination = "~/"
@@ -55,6 +32,9 @@ resource "null_resource" "deploy" {
 
     provisioner "remote-exec" {
         inline = [
+            "while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done",
+            "sudo apt-get update",
+            "sudo apt-get -y install docker docker-compose",
             "sudo docker-compose up -d",
         ]
     }
