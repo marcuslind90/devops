@@ -1,0 +1,24 @@
+version: '3'
+
+
+services:
+  master:
+    build: .
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - /var/lib/postgresql/data
+  
+  replica:
+    build: .
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - REPLICATE_FROM=master
+    volumes:
+      - /var/lib/postgresql/data
