@@ -25,3 +25,10 @@ Example of tests, linters and tools that can be used during the CI step of a CI/
 ## docker-zero-downtime-deployment
 
 Example of how you can update a running Docker container using Green/Blue Deployment that ensure zero downtime.
+
+## postgres-replication
+
+Example of how you can setup a Master and a Replica Postgres instance where data is replicated and allow Write access 
+to the master node while restricting access to the Replica as read-only. Also allow you to easily promote the replica
+to master by instantiating a file on its file system.
+
