@@ -32,3 +32,6 @@ Example of how you can setup a Master and a Replica Postgres instance where data
 to the master node while restricting access to the Replica as read-only. Also allow you to easily promote the replica
 to master by instantiating a file on its file system.
 
+## kibana-postgres
+
+Example of how you can setup a full Kibana stack using Docker Compose, that collect and track metrics and statements from a PostgreSQL database container using Metricbeat.

@@ -1,0 +1,43 @@
+version: '3'
+services:
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.1.1
+    restart: always
+    environment:
+      - "ELASTICSEARCH_HOST=elasticsearch"
+    volumes:
+      - ./kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+    ports:
+      - 5601:5601
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.1.1
+    restart: always
+    volumes:
+      - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    ports:
+      - 9200:9200
+      - 9300:9300
+
+  metricbeat:
+    image: docker.elastic.co/beats/metricbeat:7.1.1
+    restart: always
+    user: root
+    volumes:
+      - ./metricbeat.yml:/usr/share/metricbeat/metricbeat.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  postgres:
+    image: postgres:9.6
+    restart: always
+    user: root
+    volumes:
+      - ./postgresql.conf:/etc/postgres/postgresql.conf
+    command: postgres -c config_file=/etc/postgres/postgresql.conf
+    ports:
+      - 5432:5432
+    labels:
+      co.elastic.metrics/module: postgresql
+      co.elastic.metrics/hosts: postgres://postgres@postgres:5432?sslmode=disable
+      co.elastic.metrics/metricsets: database, bgwriter, activity, statement
