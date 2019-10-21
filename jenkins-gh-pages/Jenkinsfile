@@ -1,0 +1,49 @@
+pipeline {
+    agent { 
+        docker { 
+            image "python:3.7-stretch"
+            args "--user root"
+        } 
+    }
+
+    stages {
+        stage("Install dependencies") {
+            steps {
+                sh "pip install -Ur app/requirements.txt --no-cache-dir"
+            }
+        }
+        stage("Linting with Flake8") {
+            steps {
+                sh "flake8 app"
+            }
+        }
+        stage("Unit Tests") {
+            steps {
+                sh "pytest ."
+            }
+        }
+        stage("Build Docs") {
+            steps {
+                sh "pip install -Ur docs/requirements.txt"
+                sh "cd docs/ && make html"
+            }
+        }
+        stage("Deploy Docs") {
+            environment {
+                GIT_CREDS = credentials('my-github-token')
+            }
+
+            steps {
+                sh "curl -sL https://deb.nodesource.com/setup_12.x | bash -"
+                sh "apt-get update && apt-get install -y nodejs npm"
+                sh "npm install -g --silent gh-pages@2.1.1"
+                sh "git config --global credential.helper '/bin/bash ${WORKSPACE}/ops/credentials-helper.sh'"
+                sh "gh-pages --dotfiles --message '[skip ci] Updates' --dist docs/build/html"
+            }
+
+            when {
+                branch "master"
+            }
+        }
+    }
+}

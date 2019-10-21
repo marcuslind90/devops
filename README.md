@@ -35,3 +35,8 @@ to master by instantiating a file on its file system.
 ## kibana-postgres
 
 Example of how you can setup a full Kibana stack using Docker Compose, that collect and track metrics and statements from a PostgreSQL database container using Metricbeat.
+
+## jenkins-gh-pages
+
+Example of how to setup a Jenkinsfile to make a pipeline that test and lint your code but that also 
+build and deploy the documentation of the application to GitHub Pages using the `gh-pages` utility.
